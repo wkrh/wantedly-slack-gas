@@ -36,8 +36,14 @@ function toSlackData({
 }) {
   return {
     text: [
+      `${user.user.age}歳 ${user.gender} ${user.current_position}`,
+      user.working_histories?.map(e => e.company_name).join(", "),
+      user.academic_records?.map(e => `${e.school_name} ${e.major}`).join(", "),
+      user.skill_taggings?.map(e => e.tag.name).join(", "),
+      "--",
       `${user.user.name} (${user.user.age}) ${user.location} ${user.current_position} ${user.tagline}`,
       `https://www.wantedly.com/enterprise/tickets/${ticket.number} ${ticket.created_at}`,
+      "--",
       user.introduction,
       "--",
       "このさきやってみたいこと",
@@ -62,8 +68,9 @@ function toSlackData({
       user.skill_taggings?.map(e => e.tag.name).join(", "),
       "--",
       "ポートフォリオ",
-      user.portfolio_items?.map(e => `${e.title} ${e.url}`).join("\n"),
-      "最終更新: " + user.last_edit,
+      user.portfolio_items
+        ?.map(e => `${e.made_on} ${e.title} ${e.url} ${e.description}`)
+        .join("\n"),
       "--",
       "部活・サークル・ボランティア",
       user.volunteerings
@@ -73,6 +80,7 @@ function toSlackData({
       "資格・認定",
       user.certificates?.map(e => `${e.qualified_on} ${e.title}`).join("\n"),
       "--",
+      "最終更新: " + user.last_edit,
       ticket.project.title
     ].join("\n")
   };

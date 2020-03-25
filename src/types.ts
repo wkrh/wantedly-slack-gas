@@ -36,6 +36,7 @@ export interface UserRes {
   };
   introduction: string;
   statement: string; // 「このさきやってみたいこと」
+  gender: string;
   working_histories: {
     id: number;
     company_name: string;
@@ -60,6 +61,8 @@ export interface UserRes {
   portfolio_items: {
     title: string;
     url: string;
+    description: string;
+    made_on: string;
   }[];
   volunteerings: {
     title: string;
